@@ -32,7 +32,11 @@ class RemoteField(object):
         field_dict['initial'] = self.form_initial_data or self.field.initial
         field_dict['help_text'] = self.field.help_text
 
-        field_dict['error_messages'] = self.field.error_messages
+        field_dict['error_messages'] = {}
+
+        for k, v in self.field.error_messages.items():
+            # Preserves lazy object
+            field_dict['error_messages'][k] = v
 
         # Instantiate the Remote Forms equivalent of the widget if possible
         # in order to retrieve the widget contents as a dictionary.
